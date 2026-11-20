@@ -1,0 +1,14 @@
+import { chromium } from '/root/portfolio-gsap/node_modules/playwright/index.mjs';
+import { writeFile } from 'node:fs/promises';
+const browser=await chromium.launch({executablePath:'/root/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome',headless:true,args:['--no-sandbox','--disable-dev-shm-usage','--use-angle=swiftshader','--enable-unsafe-swiftshader','--host-resolver-rules=MAP * ~NOTFOUND, EXCLUDE 127.0.0.1']});
+const context=await browser.newContext({viewport:{width:1280,height:720},deviceScaleFactor:1});
+const page=await context.newPage();const errors=[],external=[];
+await context.route('**/*',route=>{if(new URL(route.request().url()).hostname==='127.0.0.1')route.continue();else{external.push(route.request().url());route.abort();}});
+page.on('pageerror',e=>errors.push(String(e)));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
+await page.goto('http://127.0.0.1:8087',{waitUntil:'networkidle'});await page.waitForTimeout(2500);
+await page.screenshot({path:'.qa/initial-menu.jpg',type:'jpeg',quality:88});
+await page.getByRole('button',{name:'Begin Low Water',exact:true}).click();await page.waitForFunction(()=>document.getElementById('hud').hidden===false,{timeout:45000});await page.waitForTimeout(3000);
+await page.screenshot({path:'.qa/initial-play.jpg',type:'jpeg',quality:88});
+const snapshot=await page.evaluate(()=>window.cairn?.snapshot());
+await writeFile('.qa/initial-inspection.json',JSON.stringify({errors,external,snapshot},null,2));
+console.log(JSON.stringify({errors,external,player:snapshot?.player,frames:snapshot?.frames,drawCalls:snapshot?.drawCalls,hud:await page.locator('#hud').evaluate(e=>({hidden:e.hidden,display:getComputedStyle(e).display,rect:e.getBoundingClientRect().toJSON()}))},null,2));await browser.close();

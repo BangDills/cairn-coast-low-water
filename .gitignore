@@ -1,0 +1,7 @@
+research/
+.qa/
+out*/
+node_modules/
+*.log
+*.zip
+*.tar.gz

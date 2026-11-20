@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102c31">
+  <meta name="description" content="Cairn Coast: Low Water. An original offline open-world harbor crime story.">
+  <title>Cairn Coast: Low Water</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main id="game" aria-label="Cairn Coast game">
+  <canvas id="view" aria-label="Third-person city view. WASD to move, E to enter cars, F to interact."></canvas>
+  <header id="brand"><b>CAIRN COAST</b><span>LOW WATER</span></header>
+  <div id="hud" hidden>
+    <section id="job" aria-label="Current mission"><div class="eyeline" id="chapter"></div><h2 id="job-title"></h2><p id="objective"></p><div class="stage-track" id="stage-track"></div><div class="job-tail"><span id="stage-label"></span><b id="distance"></b></div></section>
+    <section id="status" aria-label="Player status"><div id="money"></div><div id="heat" aria-label="Wanted level"></div><div id="pursuit"></div><div id="rep"></div></section>
+    <section id="dispatch" aria-label="Police dispatch" hidden><div class="eyeline">COAST PATROL <span id="unit-count"></span></div><div id="units"></div><div class="search-track"><i id="search-fill"></i></div><small id="search-label"></small></section>
+    <section id="map-panel" aria-label="Minimap"><div class="map-title"><b id="district"></b><span>N ↑</span></div><canvas id="minimap" width="224" height="192" aria-label="Roads, route and nearby police"></canvas><div class="vitals"><label>HEALTH <i><em id="health-bar"></em></i><b id="health-value"></b></label><label>ARMOR <i><em id="armor-bar"></em></i><b id="armor-value"></b></label></div></section>
+    <section id="vehicle" aria-label="Vehicle and weapon"><div id="weapon"></div><div id="car-name"></div><div id="speed"></div><div id="condition"></div></section>
+    <div id="location" aria-hidden="true"><span id="road"></span><small id="radio"></small></div>
+    <div id="speech" role="status" hidden><div id="speaker"></div><p id="dialogue"></p></div>
+    <div id="toast" role="status" hidden></div>
+    <div id="context" hidden></div>
+    <div id="reticle" aria-hidden="true"><i></i></div>
+    <div id="damage" aria-hidden="true"></div>
+    <footer id="controls"><span><kbd>WASD</kbd> move / drive</span><span><kbd>E</kbd> vehicle</span><span><kbd>F</kbd> interact</span><span><kbd>Q</kbd> weapon</span><span><kbd>M</kbd> map & jobs</span><span><kbd>ESC</kbd> pause</span></footer>
+  </div>
+  <section id="screen" aria-label="Game menu">
+    <div id="screen-content"><p>Building Cairn Coast…</p><p>Loading local city geometry.</p></div>
+  </section>
+  <div id="small-screen">Desktop play: keyboard and mouse required. Rotate or widen this window for the full HUD.</div>
+</main>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
